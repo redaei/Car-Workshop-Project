@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Employee</title>
+  </head>
+  <body>
+    <h1>Add New Employee</h1>
+    <form action="/userCreate" method="POST">
+      <label for="employeeNumber">Employee Number:</label>
+      <input type="number" name="employeeNumber" id="employeeNumber" /><br />
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" /><br />
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" /><br />
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" name="confirmPassword" id="confirmPassword" />
+      <br />
+      <label for="role">User Role:</label>
+      <select name="role" id="role">
+        <option value="worker" selected>Worker</option>
+        <option value="supervisor">Supervisor</option>
+        <option value="admin">Admin</option>
+      </select>
+      <br />
+
+      <button type="submit">Add Employee</button>
+    </form>
+  </body>
+</html>
