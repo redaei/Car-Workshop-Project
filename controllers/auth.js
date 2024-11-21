@@ -5,8 +5,11 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const isSignedIn = require('../middleware/is-signed-in.js')
 
-router.get('/', async (req, res) => {
-  res.render('index.ejs')
+router.get('/users',isSignedIn, async (req, res) => {
+  
+  const page = '../views/auth/index.ejs'
+  
+  res.render('index.ejs', {page})
 })
 
 router.get('/newUser', isSignedIn, (req, res) => {
@@ -68,5 +71,7 @@ router.get('/auth/sign-out', (req, res) => {
   req.session.destroy()
   res.redirect('/')
 })
+
+
 
 module.exports = router
