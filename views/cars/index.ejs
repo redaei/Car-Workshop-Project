@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-3 mb-lg-5">
+      <div class="overflow-hidden card table-nowrap table-card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5 class="mb-0">Cars</h5>
+          <div><a href="/cars/new">Add New Car</a></div>
+        </div>
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="small text-uppercase bg-body text-muted">
+              <tr>
+                <th>Car No.</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Owner</th>
+                <th>Phone</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--  -->
+              <% cars.forEach(car => { %>
+
+              <tr class="align-middle">
+                <td><a href="/cars/<%= car._id %>"><%= car.carNumber %></a></td>
+
+                <td><%= car.make %></td>
+                <td><%= car.model %></td>
+                <td><%= car.color %></td>
+                <td><%= car.ownerName %></td>
+                <td><%= car.contactNumber %></td>
+
+                <td class="text-end">
+                  <a href="/cars/<%= car._id %>/edit">Edit</a>
+                  <form
+                    action="/cars/<%= car._id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+
+              <% }) %>
+              <!--  -->
+
+              <!--  -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

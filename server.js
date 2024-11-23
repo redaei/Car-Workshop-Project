@@ -11,7 +11,8 @@ const passUserToView = require('./middleware/pass-user-to-view')
 
 const User = require('./models/user')
 const authController = require('./controllers/auth')
-const { render } = require('ejs')
+const carController = require('./controllers/car')
+
 const isSignedIn = require('./middleware/is-signed-in')
 
 // Set the port from environment variable or default to 3000
@@ -39,7 +40,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
 app.use(passUserToView)
 
 app.use(authController)
-
+app.use('/cars', carController)
 app.get('/', isSignedIn, async (req, res) => {
   try {
     //let page
@@ -50,6 +51,7 @@ app.get('/', isSignedIn, async (req, res) => {
       // page = './auth/index.ejs'
       res.redirect('/users')
     } else if (userInDatabase.role == 'supervisor') {
+      res.redirect('/cars')
     } else {
     }
     //res.render('index.ejs', { page })

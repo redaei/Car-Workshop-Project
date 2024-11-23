@@ -5,12 +5,17 @@
 
       <% if (user) { %> <% if(user.role == "admin") { %>
       <li class="nav-item">
-        <a class="nav-link" href="/users">View all Users</a>
+        <a class="nav-link" href="/users">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cars">Cars</a>
       </li>
 
       <% } else if (user.role === "supervisor") {%>
+      <a class="nav-link" href="/cars">Cars</a>
       <!--  -->
       <% } else if (user.role === "worker") { %>
+      <a class="nav-link" href="/cars">Cars</a>
       <!--  -->
       <% } %>
       <li class="nav-item">
