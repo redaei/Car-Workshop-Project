@@ -1,0 +1,35 @@
+<h1>Edit Car</h1>
+<form action="/cars/<%= car._id %>?_method=PUT" method="POST">
+  <label for="carNumber">Plate Number:</label>
+  <input
+    type="text"
+    name="carNumber"
+    id="carNumber"
+    value="<%= car.carNumber %>"
+  /><br />
+  <label for="make">Make:</label>
+  <input type="text" name="make" id="make" value="<%= car.make %>" /><br />
+  <label for="model">Model:</label>
+  <input type="number" name="model" id="model" value="<%= car.model %>" /><br />
+  <label for="color">Color:</label>
+  <input type="text" name="color" id="color" value="<%= car.color %>" />
+  <br />
+  <label for="ownerName">Owner Name:</label>
+  <input
+    type="text"
+    name="ownerName"
+    id="ownerName"
+    value="<%= car.ownerName %>"
+  />
+  <br />
+  <label for="contactNumber">Contact Number:</label>
+  <input
+    type="number"
+    name="contactNumber"
+    id="contactNumber"
+    value="<%= car.contactNumber %>"
+  />
+  <br />
+
+  <button type="submit">Save Car</button>
+</form>

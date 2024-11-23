@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-sm-3 mb-3 mb-lg-5"> -->
+    <!--  -->
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Plate Number</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= car.carNumber %></h6>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Make</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= car.make %></h6>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Model</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= car.model %></h6>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Color</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= car.color %></h6>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Owner Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= car.ownerName %></h6>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">Phone</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= car.contactNumber %></h6>
+      </div>
+    </div>
+    <!--  -->
+    <!-- </div> -->
+  </div>
+  <div class="row">
+    <a href="/cars/<%= car._id %>/edit">Edit this car</a>
+    <form action="/cars/<%= car._id %>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash"></i> Delete this car
+      </button>
+    </form>
+  </div>
+</div>

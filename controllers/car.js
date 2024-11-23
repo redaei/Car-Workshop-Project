@@ -34,6 +34,55 @@ router.post('/', isSignedIn, async (req, res) => {
   res.render('index.ejs', { page, cars, message })
 })
 
+router.get('/:carId', async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.carId)
+    const page = './cars/show.ejs'
+    res.render('index.ejs', { page, car })
+  } catch (error) {
+    console.log(error)
+    res.redirect('/')
+  }
+})
+
+router.get('/:carId/edit', isSignedIn, isAdmin, async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.carId)
+    let page = './cars/edit.ejs'
+    res.render('index.ejs', {
+      car,
+      page
+    })
+  } catch (error) {
+    console.log(error)
+    res.redirect('/')
+  }
+})
+
+router.put('/:carId', isSignedIn, async (req, res) => {
+  try {
+    const currentCar = await Car.findById(req.params.carId)
+
+    await currentCar.updateOne(req.body)
+    res.redirect('/cars')
+  } catch (error) {
+    console.log(error)
+    res.redirect('/')
+  }
+})
+
+router.delete('/:carId', isSignedIn, isAdmin, async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.carId)
+
+    await car.deleteOne()
+    res.redirect('/cars')
+  } catch (error) {
+    console.error(error)
+    res.redirect('/')
+  }
+})
+
 //
 
 module.exports = router
