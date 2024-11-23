@@ -1,0 +1,21 @@
+<h1>Edit <%= user.username %></h1>
+<form action="/users/<%= user._id %>?_method=PUT" method="POST">
+  <label for="employeeNumber">Employee Number:</label>
+  <input type="number" name="employeeNumber" id="employeeNumber" value="<%= user.employeeNumber %>" /><br />
+  <label for="username">Username:</label>
+  <input type="text" name="username" id="username"  value="<%= user.username %>"/><br />
+  <label for="password">New Password:</label>
+  <input type="password" name="password" id="password" /><br />
+  <label for="confirmPassword">Confirm New Password:</label>
+  <input type="password" name="confirmPassword" id="confirmPassword" />
+  <br />
+  <label for="role">User Role:</label>
+  <select name="role" id="role">
+    <option value="worker" <%= user.role =='worker'? "selected" : "" %>>Worker</option>
+    <option value="supervisor" <%= user.role =='supervisor'? 'selected' : "" %>>Supervisor</option>
+    <option value="admin" <%= user.role =='admin'? 'selected' : "" %>>Admin</option>
+  </select>
+  <br />
+
+  <button type="submit">Save Employee</button>
+</form>

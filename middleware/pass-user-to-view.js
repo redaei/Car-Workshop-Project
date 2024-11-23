@@ -1,5 +1,9 @@
-const passUserToView = (req, res, next) => {
-  res.locals.user = req.session.user ? req.session.user : null
+const User = require('../models/user.js')
+const passUserToView = async (req, res, next) => {
+  const user = await User.findById(req.session.user)
+
+  res.locals.user = req.session.user ? user : null
+
   next()
 }
 

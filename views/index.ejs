@@ -8,7 +8,17 @@
   </head>
   <body>
     <%- include('./partials/_navbar.ejs') %>
-    <%- include(page) %>
-    
+    <!--  -->
+
+    <% if (typeof message !== 'undefined'){ %>
+    <div class="alert alert-info alert-dismissible">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <%= message %>
+    </div>
+    <% } %>
+
+    <!--  -->
+
+    <% if (typeof page !== 'undefined'){ %> <%- include(page) %> <% } %>
   </body>
 </html>

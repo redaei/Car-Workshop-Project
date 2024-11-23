@@ -9,6 +9,7 @@ const morgan = require('morgan')
 const session = require('express-session')
 const passUserToView = require('./middleware/pass-user-to-view')
 
+const User = require('./models/user')
 const authController = require('./controllers/auth')
 const { render } = require('ejs')
 const isSignedIn = require('./middleware/is-signed-in')
@@ -39,8 +40,22 @@ app.use(passUserToView)
 
 app.use(authController)
 
-app.get('/', isSignedIn, (req,res) => {
-  render('index.ejs')
+app.get('/', isSignedIn, async (req, res) => {
+  try {
+    //let page
+    const userInDatabase = await User.findOne({
+      username: req.session.user.username
+    })
+    if (userInDatabase.role === 'admin') {
+      // page = './auth/index.ejs'
+      res.redirect('/users')
+    } else if (userInDatabase.role == 'supervisor') {
+    } else {
+    }
+    //res.render('index.ejs', { page })
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 app.listen(port, () => {

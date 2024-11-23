@@ -4,19 +4,21 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const isSignedIn = require('../middleware/is-signed-in.js')
+const isAdmin = require('../middleware/isAdmin.js')
 
-router.get('/users',isSignedIn, async (req, res) => {
-  
+router.get('/users', isSignedIn, isAdmin, async (req, res) => {
   const page = '../views/auth/index.ejs'
-  
-  res.render('index.ejs', {page})
+  const users = await User.find({})
+
+  res.render('index.ejs', { users, page })
 })
 
 router.get('/newUser', isSignedIn, (req, res) => {
-  res.render('auth/new.ejs')
+  let page = './auth/new.ejs'
+  res.render('index.ejs', { page })
 })
 
-router.post('/userCreate', async (req, res) => {
+router.post('/userCreate', isSignedIn, async (req, res) => {
   const userInDB = await User.findOne({ username: req.body.username })
 
   if (userInDB) {
@@ -31,7 +33,57 @@ router.post('/userCreate', async (req, res) => {
 
   const user = await User.create(req.body)
   const message = `${user.username} account has been created successfully.`
-  res.render('index.ejs', { message: message })
+  const users = await User.find({})
+  const page = './auth/index.ejs'
+  res.render('index.ejs', { page, users, message: message })
+})
+
+router.get('/users/:userId/edit', isSignedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId)
+    let page = './auth/edit.ejs'
+    res.render('index.ejs', {
+      user,
+      page
+    })
+  } catch (error) {
+    console.log(error)
+    res.redirect('/')
+  }
+})
+
+router.put('/users/:userId', isSignedIn, async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.params.userId)
+
+    if (req.body.password === '') {
+      req.body.password = currentUser.password
+    } else {
+      if (req.body.password !== req.body.confirmPassword) {
+        return res.send('Password and Confirm Password must match')
+      }
+      const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+      req.body.password = hashedPassword
+    }
+
+    await currentUser.updateOne(req.body)
+    res.redirect('/users')
+  } catch (error) {
+    console.log(error)
+    res.redirect('/')
+  }
+})
+
+router.delete('/users/:userId', isSignedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId)
+
+    await user.deleteOne()
+    res.redirect('/users')
+  } catch (error) {
+    console.error(error)
+    res.redirect('/')
+  }
 })
 
 router.get('/auth/sign-in', (req, res) => {
@@ -71,7 +123,5 @@ router.get('/auth/sign-out', (req, res) => {
   req.session.destroy()
   res.redirect('/')
 })
-
-
 
 module.exports = router
