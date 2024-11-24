@@ -12,6 +12,8 @@ const passUserToView = require('./middleware/pass-user-to-view')
 const User = require('./models/user')
 const authController = require('./controllers/auth')
 const carController = require('./controllers/car')
+const serviceController = require('./controllers/service')
+const billController = require('./controllers/bill')
 
 const isSignedIn = require('./middleware/is-signed-in')
 
@@ -41,6 +43,9 @@ app.use(passUserToView)
 
 app.use(authController)
 app.use('/cars', carController)
+app.use('/services', serviceController)
+app.use('/bills', billController)
+
 app.get('/', isSignedIn, async (req, res) => {
   try {
     //let page
