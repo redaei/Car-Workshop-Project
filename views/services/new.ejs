@@ -1,0 +1,17 @@
+<h1>Add New Service</h1>
+<form action="/services" method="POST">
+  <label for="serviceName">Service Name:</label>
+  <input type="text" name="serviceName" id="serviceName" /><br />
+  <label for="serviceDescription">Service Description:</label>
+  <input type="text" name="serviceDescription" id="serviceDescription" /><br />
+
+  <h4>Workers:</h4>
+  
+    <select class="form-select" size="3" aria-label="size 3 select example"></select>
+    <% users.forEach((user) => { %>
+      <option value="<%= user._id %>"><%= user.username %></option>
+    <% }) %>
+  </select>
+
+  <button type="submit">Add Service</button>
+</form>

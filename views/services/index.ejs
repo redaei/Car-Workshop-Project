@@ -1,0 +1,25 @@
+<div class="container mt-5 mb-3">
+  <a href="/services/new">Add New Service</a>
+  <div class="row">
+    <!--  -->
+    <% services.forEach(service => { %>
+    <div class="col-md-3">
+      <div class="card p-3 mb-2">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-row align-items-center">
+            <div class="ms-2 c-details">
+              <h6 class="mb-0">
+                <a href="/services/<%= service._id %>"
+                  ><%= service.serviceName %></a
+                >
+              </h6>
+              <span><%= service.serviceDescription %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    <!--  -->
+  </div>
+</div>

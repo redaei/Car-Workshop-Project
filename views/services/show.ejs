@@ -1,0 +1,62 @@
+<div class="container mt-5 mb-3">
+  <h3>Service Information:</h3>
+  <div class="row">
+    <!-- <div class="col-sm-3 mb-3 mb-lg-5"> -->
+    <!--  -->
+    <div class="col-md-3">
+      <div class="card p-3 mb-2">
+        <div class="card-body">
+          <h5 class="card-title">Service</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            <%= service.serviceName %>
+          </h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 mb-2">
+        <div class="card-body">
+          <h5 class="card-title">Description</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            <%= service.serviceDescription %>
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5 mb-3">
+  <h3>Workers:</h3>
+  <div class="row">
+    <!-- <div class="col-sm-3 mb-3 mb-lg-5"> -->
+    <!--  -->
+    <% service.employees.forEach(user => { %>
+    <div class="col-md-3">
+      <div class="card p-3 mb-2">
+        <div class="card-body">
+          <h5 class="card-title"><%= user.username %></h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            <%= user.employeeNumber %>
+          </h6>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+
+<div class="container mt-5 mb-3">
+  <div class="row">
+    <form action="/services/<%= service._id %>/edit" method="GET">
+      <button type="submit" class="btn btn-warning">
+        <i class="fa-solid fa-pen-to-square"></i> Edit Service
+      </button>
+    </form>
+    <form action="/services/<%= service._id %>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash"></i> Delete Service
+      </button>
+    </form>
+  </div>
+</div>

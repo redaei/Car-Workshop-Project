@@ -1,4 +1,5 @@
 const Service = require('../models/service.js')
+const User = require('../models/user.js')
 
 const express = require('express')
 const router = express.Router()
@@ -8,76 +9,84 @@ const isAdmin = require('../middleware/isAdmin.js')
 //
 
 router.get('/', isSignedIn, async (req, res) => {
-    const services = await Service.find({})
-    const page = '../views/services/index.ejs'
-    res.render('index.ejs', { services, page })
+  const services = await Service.find({})
+  const page = '../views/services/index.ejs'
+  res.render('index.ejs', { services, page })
 })
-  
-router.get('/new', isSignedIn, (req, res) => {
-const page = '../views/services/new.ejs'
-res.render('index.ejs', { page })
+
+router.get('/new', isSignedIn, async (req, res) => {
+  const users = await User.find({ role: 'worker' })
+  const page = '../views/services/new.ejs'
+  res.render('index.ejs', { page, users })
 })
 
 router.post('/', isSignedIn, async (req, res) => {
-let page
-let message
-const serviceInDB = await Service.findOne({ serviceName: req.body.serviceName })
+  let page
+  let message
+  const serviceInDB = await Service.findOne({
+    serviceName: req.body.serviceName
+  })
+  console.log(req.body)
 
-if (serviceInDB) {
+  if (serviceInDB) {
     return res.send('This service is already exist!')
-}
+  }
 
-const service = await Service.create(req.body)
-message = `${service.serviceName} service has been added successfully.`
-const services = await Service.find({})
-page = './services/index.ejs'
-res.render('index.ejs', { page, services, message })
+  const service = await Service.create(req.body)
+  message = `${service.serviceName} service has been added successfully.`
+  const services = await Service.find({})
+  page = './services/index.ejs'
+  res.render('index.ejs', { page, services, message })
 })
 
 router.get('/:serviceId', async (req, res) => {
-try {
-    const service = await Service.findById(req.params.serviceId)
+  try {
+    const service = await Service.findById(req.params.serviceId).populate(
+      'employees'
+    )
+    console.log(service)
+
     const page = './services/show.ejs'
     res.render('index.ejs', { page, service })
-} catch (error) {
+  } catch (error) {
     console.log(error)
     res.redirect('/')
-}
+  }
 })
 
 router.get('/:serviceId/edit', isSignedIn, isAdmin, async (req, res) => {
-try {
+  try {
     const service = await Service.findById(req.params.serviceId)
     let page = './services/edit.ejs'
-    res.render('index.ejs', { service , page })
-} catch (error) {
+    res.render('index.ejs', { service, page })
+  } catch (error) {
     console.log(error)
     res.redirect('/')
-}
+  }
 })
 
 router.put('/:serviceId', isSignedIn, isAdmin, async (req, res) => {
-try {
+  try {
     const currentService = await Service.findById(req.params.serviceId)
 
     await currentService.updateOne(req.body)
     res.redirect('/services')
-} catch (error) {
+  } catch (error) {
     console.log(error)
     res.redirect('/')
-}
+  }
 })
 
 router.delete('/:serviceId', isSignedIn, isAdmin, async (req, res) => {
-try {
+  try {
     const service = await Service.findById(req.params.serviceId)
 
     await service.deleteOne()
     res.redirect('/services')
-} catch (error) {
+  } catch (error) {
     console.error(error)
     res.redirect('/')
-}
+  }
 })
 
 //

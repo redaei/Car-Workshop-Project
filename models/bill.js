@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const billSchema = new mongoose.Schema(
   {
     amount: {
-      type: Double,
-      required: true
+      type: Number,
+      required: true,
+      default: 0
     },
     paymentStatus: {
       type: String,
