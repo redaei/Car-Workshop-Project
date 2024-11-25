@@ -1,0 +1,72 @@
+<div class="container">
+  <!--  -->
+
+  <input class="form-control" id="myInput" type="text" placeholder="Search.." />
+
+  <!--  -->
+
+  <div class="row">
+    <div class="col-12 mb-3 mb-lg-5">
+      <div class="overflow-hidden card table-nowrap table-card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5 class="mb-0">Cars</h5>
+        </div>
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="small text-uppercase bg-body text-muted">
+              <tr>
+                <th>Car No.</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Owner</th>
+                <th>Phone</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--  -->
+              <% cars.forEach(car => { %>
+
+              <tr class="align-middle">
+                <td>
+                  <a
+                    href="/<%= service._id %>/<%= car._id %>"
+                    class="stretched-link"
+                  ></a
+                  ><%= car.carNumber %>
+                </td>
+
+                <td><%= car.make %></td>
+                <td><%= car.model %></td>
+                <td><%= car.color %></td>
+                <td><%= car.ownerName %></td>
+                <td><%= car.contactNumber %></td>
+              </tr>
+
+              <% }) %>
+              <!--  -->
+
+              <!--  -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+
+<script>
+  $(document).ready(function () {
+    $('#myInput').on('keyup', function () {
+      var value = $(this).val().toLowerCase()
+      $('#myTable tr').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
+  })
+</script>

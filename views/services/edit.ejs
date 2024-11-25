@@ -1,0 +1,38 @@
+<h1>Edit <%= service.serviceName %> Service</h1>
+<form action="/services/<%= service._id %>?_method=PUT" method="POST">
+  <label for="serviceName">Service Name:</label>
+  <input
+    type="text"
+    name="serviceName"
+    id="serviceName"
+    value="<%= service.serviceName %>"
+  /><br />
+  <label for="serviceDescription">Service Description:</label>
+  <input
+    type="text"
+    name="serviceDescription"
+    id="serviceDescription"
+    value="<%= service.serviceDescription %>"
+  /><br />
+
+  <h4>Workers:</h4>
+
+  <select
+    name="employees"
+    id="employees"
+    class="form-select"
+    size="3"
+    aria-label="size 3 select example"
+    multiple
+  >
+    <% users.forEach((user) => { %> <% if (service.employees.includes(user._id))
+    { %>
+    <option value="<%= user._id %>" selected><%= user.username %></option>
+    <% } else { %>
+    <option value="<%= user._id %>"><%= user.username %></option>
+    <% }}) %>
+  </select>
+  <p>Hold down the control (ctrl/command) button to select multiple options</p>
+
+  <button type="submit">Save Service</button>
+</form>

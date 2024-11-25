@@ -14,6 +14,7 @@ const authController = require('./controllers/auth')
 const carController = require('./controllers/car')
 const serviceController = require('./controllers/service')
 const billController = require('./controllers/bill')
+const requestController = require('./controllers/request')
 
 const isSignedIn = require('./middleware/is-signed-in')
 
@@ -39,12 +40,14 @@ app.use(
   })
 )
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
 app.use(passUserToView)
 
 app.use(authController)
 app.use('/cars', carController)
 app.use('/services', serviceController)
 app.use('/bills', billController)
+app.use('/requests', requestController)
 
 app.get('/', isSignedIn, async (req, res) => {
   try {

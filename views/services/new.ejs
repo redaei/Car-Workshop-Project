@@ -6,12 +6,13 @@
   <input type="text" name="serviceDescription" id="serviceDescription" /><br />
 
   <h4>Workers:</h4>
-  
-    <select class="form-select" size="3" aria-label="size 3 select example"></select>
+
+  <select name="employees" id="employees" class="form-select" multiple>
     <% users.forEach((user) => { %>
-      <option value="<%= user._id %>"><%= user.username %></option>
+    <option value="<%= user._id %>"><%= user.username %></option>
     <% }) %>
   </select>
+  <p>Hold down the control (ctrl/command) button to select multiple options</p>
 
   <button type="submit">Add Service</button>
 </form>

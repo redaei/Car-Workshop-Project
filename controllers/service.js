@@ -44,7 +44,6 @@ router.get('/:serviceId', async (req, res) => {
     const service = await Service.findById(req.params.serviceId).populate(
       'employees'
     )
-    console.log(service)
 
     const page = './services/show.ejs'
     res.render('index.ejs', { page, service })
@@ -57,8 +56,9 @@ router.get('/:serviceId', async (req, res) => {
 router.get('/:serviceId/edit', isSignedIn, isAdmin, async (req, res) => {
   try {
     const service = await Service.findById(req.params.serviceId)
+    const users = await User.find({ role: 'worker' })
     let page = './services/edit.ejs'
-    res.render('index.ejs', { service, page })
+    res.render('index.ejs', { service, users, page })
   } catch (error) {
     console.log(error)
     res.redirect('/')
