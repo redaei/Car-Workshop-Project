@@ -21,6 +21,15 @@ router.get('/:serviceId', isSignedIn, async (req, res) => {
   res.render('index.ejs', { service, cars, page })
 })
 
+router.get('/:serviceId/:carId', (req, res) => {
+  const service =  Service.findById(req.params.serviceId)
+  const car =  Car.findById(req.params.carId)
+  // create bill with (car id, service id, user id )
+  const bills = Bill.find({createdBy: req.session.user})
+  const page = '../views/requests/index.ejs'
+  res.render('index.ejs', { bills, page })
+})
+
 //
 
 module.exports = router

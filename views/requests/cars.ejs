@@ -26,24 +26,28 @@
                 <th class="text-end">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
               <!--  -->
               <% cars.forEach(car => { %>
 
               <tr class="align-middle">
-                <td>
-                  <a
-                    href="/<%= service._id %>/<%= car._id %>"
-                    class="stretched-link"
-                  ></a
-                  ><%= car.carNumber %>
-                </td>
+                <td><%= car.carNumber %></td>
 
                 <td><%= car.make %></td>
                 <td><%= car.model %></td>
                 <td><%= car.color %></td>
                 <td><%= car.ownerName %></td>
                 <td><%= car.contactNumber %></td>
+
+                <td class="text-end">
+                  <form
+                    action="/requests/<%= service._id %>/<%= car._id %>"
+                    method="GET"
+                  >
+                    <button class="btn btn-success" type="submit">Select</button>
+                  </form>
+                </td>
+              </tr>
               </tr>
 
               <% }) %>
