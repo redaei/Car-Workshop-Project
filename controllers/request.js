@@ -10,24 +10,66 @@ const isSignedIn = require('../middleware/is-signed-in.js')
 //
 
 router.get('/', isSignedIn, async (req, res) => {
+  const bills = await Bill.find({ createdBy: req.session.user })
+    .populate('car')
+    .populate('createdBy')
+    .populate('service')
+  const page = '../views/requests/index.ejs'
+  res.render('index.ejs', { bills, page })
+})
+
+router.get('/new', isSignedIn, async (req, res) => {
   const services = await Service.find({})
   const page = '../views/requests/services.ejs'
   res.render('index.ejs', { services, page })
 })
-router.get('/:serviceId', isSignedIn, async (req, res) => {
+router.get('/new/:serviceId', isSignedIn, async (req, res) => {
   const service = await Service.findById(req.params.serviceId)
   const cars = await Car.find({})
   const page = '../views/requests/cars.ejs'
   res.render('index.ejs', { service, cars, page })
 })
 
-router.get('/:serviceId/:carId', (req, res) => {
-  const service =  Service.findById(req.params.serviceId)
-  const car =  Car.findById(req.params.carId)
-  // create bill with (car id, service id, user id )
-  const bills = Bill.find({createdBy: req.session.user})
-  const page = '../views/requests/index.ejs'
-  res.render('index.ejs', { bills, page })
+router.get('/new/:serviceId/:carId', isSignedIn, async (req, res) => {
+  try {
+    // const service =  Service.findById()
+    // const car =  Car.findById()
+    // create bill with (car id, service id, user id )
+    billNum = await Bill.findOne().sort('-created_at')
+    console.log(billNum)
+
+    const bill = await Bill.create({
+      createdBy: req.session.user,
+      service: req.params.serviceId,
+      car: req.params.carId
+    })
+
+    const bills = await Bill.find({ createdBy: req.session.user })
+      .populate('car')
+      .populate('createdBy')
+      .populate('service')
+    const page = '../views/requests/index.ejs'
+    res.render('index.ejs', { bills, page })
+  } catch (err) {
+    console.log(err)
+    res.redirect('/')
+  }
+})
+
+router.post('/new/serviceId', isSignedIn, async (req, res) => {
+  let page
+  let message
+  const carInDB = await Car.findOne({ carNumber: req.body.carNumber })
+
+  if (carInDB) {
+    return res.send('This car is already registered!')
+  }
+
+  const car = await Car.create(req.body)
+  message = `${car.carNumber} car has been added successfully.`
+  const cars = await Car.find({})
+  page = './request/index.ejs'
+  res.render('index.ejs', { page, cars, message })
 })
 
 //

@@ -9,6 +9,12 @@ const isAdmin = require('../middleware/isAdmin.js')
 
 router.get('/', isSignedIn, async (req, res) => {
   const bills = await Bill.find({})
+    .populate('car')
+    .populate('createdBy')
+    .populate('service')
+
+  console.log(bills[0])
+
   const page = '../views/bills/index.ejs'
   res.render('index.ejs', { bills, page })
 })
@@ -26,9 +32,12 @@ router.post('/', isSignedIn, async (req, res) => {
   res.render('index.ejs', { page, bills, message })
 })
 
-router.get('/:billId', async (req, res) => {
+router.get('/:billId', isSignedIn, isAdmin, async (req, res) => {
   try {
     const bill = await Bill.findById(req.params.billId)
+      .populate('car')
+      .populate('createdBy')
+      .populate('service')
     const page = './bills/show.ejs'
     res.render('index.ejs', { page, bill })
   } catch (error) {
@@ -48,7 +57,7 @@ router.get('/:billId/edit', isSignedIn, isAdmin, async (req, res) => {
   }
 })
 
-router.put('/:billId', isSignedIn, async (req, res) => {
+router.put('/:billId', isSignedIn, isAdmin, async (req, res) => {
   try {
     const currentBill = await Bill.findById(req.params.billId)
 

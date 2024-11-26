@@ -1,76 +1,99 @@
 <section class="py-3 py-md-5">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-9 col-xl-8 col-xxl-7">
-          <div class="row gy-3 mb-3">
-            <div class="col-6">
-              <h2 class="text-uppercase text-endx m-0">Bill No.: <%= bill.id %></h2>
-            </div>
-            <div class="col-6">
-              <a class="d-block text-end" href="#!">
-                CarWorkshop
-                <img src="./assets/img/bsb-logo.svg" class="img-fluid" alt="BootstrapBrain Logo" width="135" height="44">
-              </a>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-9 col-xl-8 col-xxl-7">
+        <div class="row gy-3 mb-3">
+          <div class="col-6">
+            <h2 class="text-uppercase text-endx m-0">
+              Bill No.: <%= bill.billNo %>
+            </h2>
+          </div>
+          <div class="col-6">
+            <a class="d-block text-end" href="#!">
+              CarWorkshop
+              <img
+                src="./assets/img/bsb-logo.svg"
+                class="img-fluid"
+                alt="BootstrapBrain Logo"
+                width="135"
+                height="44"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-sm-6 col-md-8">
+            <h4>Bill To</h4>
+            <address>
+              <strong><%= bill.car.carNumber %></strong><br />
+              <%= bill.car.make %><br />
+              <%= bill.car.model %><br />
+              <%= bill.car.ownerName %><br />
+              Phone: <%= bill.car.contactNumber %><br />
+            </address>
+          </div>
+          <div class="col-12 col-sm-6 col-md-4">
+            <h4 class="row">
+              <span class="col-6">Worker: </span>
+              <span class="col-6 text-sm-end"
+                ><%= bill.createdBy.username %></span
+              >
+            </h4>
+            <div class="row">
+              <span class="col-6">Employee No</span>
+              <span class="col-6 text-sm-end"
+                ><%= bill.createdBy.employeeNumber %></span
+              >
+              <span class="col-6">Bill Date</span>
+              <% if (typeof paymentDate !== 'undefined'){ %>
+              <span class="col-6 text-sm-end"><%=bill.paymentDate %></span>
+              <% } else { %>
+              <span class="col-6 text-sm-end">Not Paid!</span>
+              <% } %>
+              <span class="col-6">Payment Status</span>
+              <span class="col-6 text-sm-end"><%= bill.paymentStatus %></span>
             </div>
           </div>
-          <div class="row mb-3">
-            <div class="col-12 col-sm-6 col-md-8">
-              <h4>Bill To</h4>
-              <address>
-                <strong><%= bill.car %></strong><br>
-                <%= bill.car %><br>
-                <%= bill.car %><br>
-                <%= bill.car %><br>
-                Phone: <%= bill.car %><br>
-              </address>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-              <h4 class="row">
-                <span class="col-6">Worker: </span>
-                <span class="col-6 text-sm-end"><%= bill.createdBy %></span>
-              </h4>
-              <div class="row">
-                <span class="col-6">Employee No</span>
-                <span class="col-6 text-sm-end"><%= bill.createdBy %></span>
-                <span class="col-6">Bill Date</span>
-                <span class="col-6 text-sm-end">11/11/2022</span>
-                <span class="col-6">Payment Status</span>
-                <span class="col-6 text-sm-end"><%= bill.paymentStatus %></span>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-12">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col" class="text-uppercase">Service</th>
-                      <th scope="col" class="text-uppercase text-end">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-group-divider">
-                    <tr>
-                      <td><%= bill.service %></td>
-                      <td class="text-end"><%= bill.amount %></td>
-                    </tr>
-                    
-                    <tr>
-                      <th scope="row" colspan="3" class="text-uppercase text-end">Total</th>
-                      <td class="text-end">BD <%= bill.amount %></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-uppercase">Service</th>
+                    <th scope="col" class="text-uppercase text-end">Amount</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr>
+                    <td class="col-4"><%= bill.service.serviceName %></td>
+                    <td style="width: 100%" class="col-8 text-end">
+                      <%= bill.amount %>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row" class="text-uppercase text-end col-10">
+                      Total
+                    </th>
+
+                    <td class="text-end col-2">BD <%= bill.amount %></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12 text-end">
-              <button type="submit" class="btn btn-primary mb-3">Pay</button>
-              <button type="submit" class="btn btn-danger mb-3">Cancel Bill</button>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary mb-3">Pay</button>
+            <button type="submit" class="btn btn-danger mb-3">
+              Cancel Bill
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

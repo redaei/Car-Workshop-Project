@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const billSchema = new mongoose.Schema(
   {
+    billNo: {
+      type: Number,
+      required: true,
+      default: 1
+    },
     amount: {
       type: Number,
       required: true,
