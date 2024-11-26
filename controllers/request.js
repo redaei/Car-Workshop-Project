@@ -67,9 +67,9 @@ router.post('/new/serviceId', isSignedIn, async (req, res) => {
 
   const car = await Car.create(req.body)
   message = `${car.carNumber} car has been added successfully.`
-  const cars = await Car.find({})
-  page = './request/index.ejs'
-  res.render('index.ejs', { page, cars, message })
+
+  page = `/request/new/${req.params.serviceId}/${car._id}`
+  res.redirect(`/request/new/${req.params.serviceId}/${car._id}`)
 })
 
 //
