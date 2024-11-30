@@ -49,10 +49,12 @@
                         <a href="/bills/<%= bill._id %>">View</a>
                         <a href="/bills/<%= bill._id %>/edit">Edit</a>
                         <form
-                          action="/bills/<%= bill._id %>?_method=DELETE"
+                          action="/bills/<%= bill._id %>/Canceled?_method=PUT"
                           method="POST"
                         >
-                          <button type="submit">Delete</button>
+                          <button class="btn btn-danger mb-3" type="submit">
+                            Cancel
+                          </button>
                         </form>
                       </td>
                     </tr>
@@ -107,12 +109,6 @@
                       <td class="text-end">
                         <a href="/bills/<%= bill._id %>">View</a>
                         <a href="/bills/<%= bill._id %>/edit">Edit</a>
-                        <form
-                          action="/bills/<%= bill._id %>?_method=DELETE"
-                          method="POST"
-                        >
-                          <button type="submit">Delete</button>
-                        </form>
                       </td>
                     </tr>
                     <% } %> <% }) %>
@@ -166,12 +162,6 @@
                       <td class="text-end">
                         <a href="/bills/<%= bill._id %>">View</a>
                         <a href="/bills/<%= bill._id %>/edit">Edit</a>
-                        <form
-                          action="/bills/<%= bill._id %>?_method=DELETE"
-                          method="POST"
-                        >
-                          <button type="submit">Delete</button>
-                        </form>
                       </td>
                     </tr>
                     <% } %> <% }) %>

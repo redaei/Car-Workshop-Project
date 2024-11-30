@@ -23,6 +23,12 @@ router.get('/new', isSignedIn, async (req, res) => {
   const page = '../views/requests/services.ejs'
   res.render('index.ejs', { services, page })
 })
+router.get('/new/:serviceId/newCar', isSignedIn, async (req, res) => {
+  const service = await Service.findById(req.params.serviceId)
+  const page = '../views/requests/newCar.ejs'
+  res.render('index.ejs', { service, page })
+})
+
 router.get('/new/:serviceId', isSignedIn, async (req, res) => {
   const service = await Service.findById(req.params.serviceId)
   const cars = await Car.find({})
@@ -35,10 +41,14 @@ router.get('/new/:serviceId/:carId', isSignedIn, async (req, res) => {
     // const service =  Service.findById()
     // const car =  Car.findById()
     // create bill with (car id, service id, user id )
-    billNum = await Bill.findOne().sort('-created_at')
-    console.log(billNum)
+    const lastBill = await Bill.findOne().sort('-billNo')
+    let billNum = 1
+    if (lastBill) {
+      billNum = lastBill.billNo + 1
+    }
 
     const bill = await Bill.create({
+      billNo: billNum,
       createdBy: req.session.user,
       service: req.params.serviceId,
       car: req.params.carId
@@ -56,7 +66,9 @@ router.get('/new/:serviceId/:carId', isSignedIn, async (req, res) => {
   }
 })
 
-router.post('/new/serviceId', isSignedIn, async (req, res) => {
+router.post('/new/:serviceId', isSignedIn, async (req, res) => {
+  console.log('Helllooooo!!!')
+
   let page
   let message
   const carInDB = await Car.findOne({ carNumber: req.body.carNumber })
@@ -69,7 +81,7 @@ router.post('/new/serviceId', isSignedIn, async (req, res) => {
   message = `${car.carNumber} car has been added successfully.`
 
   page = `/request/new/${req.params.serviceId}/${car._id}`
-  res.redirect(`/request/new/${req.params.serviceId}/${car._id}`)
+  res.redirect(`/requests/new/${req.params.serviceId}/${car._id}`)
 })
 
 //

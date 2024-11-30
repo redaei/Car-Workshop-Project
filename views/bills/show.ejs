@@ -87,10 +87,20 @@
         </div>
         <div class="row">
           <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary mb-3">Pay</button>
-            <button type="submit" class="btn btn-danger mb-3">
-              Cancel Bill
-            </button>
+            <form
+              action="/bills/<%= bill._id %>/Paid?_method=PUT"
+              method="POST"
+            >
+              <button type="submit" class="btn btn-primary mb-3">Pay</button>
+            </form>
+            <form
+              action="/bills/<%= bill._id %>/Canceled?_method=PUT"
+              method="POST"
+            >
+              <button type="submit" class="btn btn-danger mb-3">
+                Cancel Bill
+              </button>
+            </form>
           </div>
         </div>
       </div>

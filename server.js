@@ -59,8 +59,9 @@ app.get('/', isSignedIn, async (req, res) => {
       // page = './auth/index.ejs'
       res.redirect('/users')
     } else if (userInDatabase.role == 'supervisor') {
-      res.redirect('/cars')
+      res.redirect('/bills')
     } else {
+      res.redirect('requests/new')
     }
     //res.render('index.ejs', { page })
   } catch (err) {

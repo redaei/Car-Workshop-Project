@@ -3,6 +3,12 @@
 
   <input class="form-control" id="myInput" type="text" placeholder="Search.." />
 
+  <form
+    action="/requests/new/<%= service._id %>/newCar"
+    method="GET"
+  >
+    <button class="btn btn-success" type="submit">Add New Car</button>
+  </form>
   <!--  -->
 
   <div class="row">
@@ -41,7 +47,7 @@
 
                 <td class="text-end">
                   <form
-                    action="/requests/new<%= service._id %>/<%= car._id %>"
+                    action="/requests/new/<%= service._id %>/<%= car._id %>"
                     method="GET"
                   >
                     <button class="btn btn-success" type="submit">Select</button>

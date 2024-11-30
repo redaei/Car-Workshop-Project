@@ -1,41 +1,39 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-
-      <% if (user) { %> <% if(user.role == "admin") { %>
+      <li class="nav-item"><a class="nav-link " href="/">Home</a></li>
+      <%= activePage = '/' + page.split("/")[2] %> 
+     
+      <% if (user) { %> <%
+      if(user.role == "admin") { %>
       <li class="nav-item">
-        <a class="nav-link" href="/users">Users</a>
+        <a
+          class="nav-link <%= "/auth" == activePage? "active" :'' %>" href="/users">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/cars">Cars</a>
+        <a class="nav-link  <%= "/cars" == activePage? "active" :'' %>" href="/cars">Cars</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/services">Services</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/bills">Bills</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/requests">Requests</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/requests/new">New Request</a>
+        <a class="nav-link <%= "/services" == activePage? "active" :'' %>" href="/services">Services</a>
       </li>
 
       <% } else if (user.role === "supervisor") {%>
-      <li class="nav-item">
-        <a class="nav-link" href="/cars">Cars</a>
+        <li class="nav-item">
+        <a class="nav-link <%= "/bills" == activePage? "active" :'' %>" href="/bills">Bills</a>
       </li>
-      <!--  -->
+        <li class="nav-item">
+        <a class="nav-link  <%= "/cars" == activePage? "active" :'' %>" href="/cars">Cars</a>
+      </li>
+      
+     
       <% } else if (user.role === "worker") { %>
-      <li class="nav-item">
-        <a class="nav-link" href="/requests">Requests</a>
+        <li class="nav-item">
+        <a class="nav-link <%= "/requests" == activePage? "active" :'' %>" href="/requests">Requests</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/requests/new">New Request</a>
       </li>
-      <!--  -->
+    
       <% } %>
       <li class="nav-item">
         <a class="nav-link" href="/auth/sign-out">Sign Out</a>
