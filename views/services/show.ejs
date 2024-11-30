@@ -1,62 +1,69 @@
-<div class="container mt-5 mb-3">
-  <h3>Service Information:</h3>
-  <div class="row">
-    <!-- <div class="col-sm-3 mb-3 mb-lg-5"> -->
-    <!--  -->
-    <div class="col-md-3">
-      <div class="card p-3 mb-2">
-        <div class="card-body">
-          <h5 class="card-title">Service</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            <%= service.serviceName %>
-          </h6>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card p-3 mb-2">
-        <div class="card-body">
-          <h5 class="card-title">Description</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            <%= service.serviceDescription %>
-          </h6>
-        </div>
+<section class="bg-light py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+        <h2 class="mb-4 display-5 text-center">Service Information</h2>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
       </div>
     </div>
   </div>
-</div>
 
-<div class="container mt-5 mb-3">
-  <h3>Workers:</h3>
-  <div class="row">
-    <!-- <div class="col-sm-3 mb-3 mb-lg-5"> -->
-    <!--  -->
-    <% service.employees.forEach(user => { %>
-    <div class="col-md-3">
-      <div class="card p-3 mb-2">
-        <div class="card-body">
-          <h5 class="card-title"><%= user.username %></h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            <%= user.employeeNumber %>
-          </h6>
+  <!--  -->
+  <div class="container mt-5 mb-3">
+    <div class="row">
+      <!--  -->
+
+      <h6 class="card-subtitle mb-2 text-muted">Service:</h6>
+      <h5 class="card-title"><%= service.serviceName %></h5>
+    </div>
+  </div>
+  <div class="container mt-5 mb-3">
+    <div class="row">
+      <h6 class="card-subtitle mb-2 text-muted">Description:</h6>
+      <h5 class="card-title" class="card-subtitle mb-2 text-muted">
+        <%= service.serviceDescription %>
+      </h5>
+    </div>
+  </div>
+
+  <div class="container mt-5 mb-3">
+    <div class="row">
+      <h6 class="card-subtitle mb-2 text-muted">Workers:</h6>
+      <div class="col-12">
+        <div class="container-fluid">
+          <div class="row gy-3 gy-md-4">
+            <!--  -->
+            <% service.employees.forEach(user => { %>
+            <div class="col-md-3">
+              <div class="card p-3 mb-2">
+                <div class="card-body">
+                  <i class="fa fa-user"></i>
+                  <h5 class="card-title"><%= user.username %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Emp. No: <%= user.employeeNumber %>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
         </div>
       </div>
     </div>
-    <% }) %>
   </div>
-</div>
 
-<div class="container mt-5 mb-3">
-  <div class="row">
-    <form action="/services/<%= service._id %>/edit" method="GET">
-      <button type="submit" class="btn btn-warning">
-        <i class="fa-solid fa-pen-to-square"></i> Edit Service
-      </button>
-    </form>
-    <form action="/services/<%= service._id %>?_method=DELETE" method="POST">
-      <button type="submit" class="btn btn-danger">
-        <i class="fa fa-trash"></i> Delete Service
-      </button>
-    </form>
+  <div class="container mt-5 mb-3">
+    <div class="row">
+      <form action="/services/<%= service._id %>/edit" method="GET">
+        <button type="submit" class="btn btn-warning">
+          <i class="fa fa-edit"></i> Edit Service
+        </button>
+      </form>
+      <form action="/services/<%= service._id %>?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger">
+          <i class="fa fa-trash"></i> Delete Service
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+</section>

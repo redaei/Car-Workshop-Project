@@ -21,10 +21,13 @@ router.get('/new', isSignedIn, (req, res) => {
 router.post('/', isSignedIn, async (req, res) => {
   let page
   let message
+  let errMessage
   const carInDB = await Car.findOne({ carNumber: req.body.carNumber })
 
   if (carInDB) {
-    return res.send('This car is already registered!')
+    errMessage = 'This car is already registered!'
+    page = './cars/new.ejs'
+    return res.render('index.ejs', { page, errMessage })
   }
 
   const car = await Car.create(req.body)

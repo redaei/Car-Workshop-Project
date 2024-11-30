@@ -54,12 +54,7 @@ router.get('/new/:serviceId/:carId', isSignedIn, async (req, res) => {
       car: req.params.carId
     })
 
-    const bills = await Bill.find({ createdBy: req.session.user })
-      .populate('car')
-      .populate('createdBy')
-      .populate('service')
-    const page = '../views/requests/index.ejs'
-    res.render('index.ejs', { bills, page })
+    res.redirect('/requests')
   } catch (err) {
     console.log(err)
     res.redirect('/')
@@ -71,10 +66,13 @@ router.post('/new/:serviceId', isSignedIn, async (req, res) => {
 
   let page
   let message
+  let errMessage
   const carInDB = await Car.findOne({ carNumber: req.body.carNumber })
 
   if (carInDB) {
-    return res.send('This car is already registered!')
+    errMessage = 'This car is already registered!'
+    page = './cars/new.ejs'
+    return res.render('index.ejs', { page, errMessage })
   }
 
   const car = await Car.create(req.body)

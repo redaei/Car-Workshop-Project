@@ -61,6 +61,10 @@ router.put('/:billId/:action', isSignedIn, isSupervisor, async (req, res) => {
     const currentBill = await Bill.findById(req.params.billId)
 
     req.body.paymentStatus = req.params.action
+    if (req.params.action == 'Paid') {
+      const datetime = new Date()
+      req.body.paymentDate = datetime
+    }
 
     await currentBill.updateOne(req.body)
     res.redirect('/bills')

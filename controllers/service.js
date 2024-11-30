@@ -23,13 +23,16 @@ router.get('/new', isSignedIn, async (req, res) => {
 router.post('/', isSignedIn, async (req, res) => {
   let page
   let message
+  let errMessage
   const serviceInDB = await Service.findOne({
     serviceName: req.body.serviceName
   })
   console.log(req.body)
 
   if (serviceInDB) {
-    return res.send('This service is already exist!')
+    errMessage = 'This service is already exist!'
+    page = './services/new.ejs'
+    return res.render('index.ejs', { page, errMessage })
   }
 
   const service = await Service.create(req.body)

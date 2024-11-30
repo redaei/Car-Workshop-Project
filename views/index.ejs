@@ -11,17 +11,38 @@
     />
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/style/style.css" />
     <title>Home Page</title>
   </head>
-  <body>
+  <body class="bg-light">
     <%- include('./partials/_navbar.ejs') %>
     <!--  -->
 
     <% if (typeof message !== 'undefined'){ %>
-    <div class="alert alert-info alert-dismissible">
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      <%= message %>
+    <div class="container">
+      <div class="alert alert-info alert-dismissible">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
+        <%= message %>
+      </div>
     </div>
+    <% } %>
+    <!--  -->
+    <% if (typeof errMessage !== 'undefined'){ %>
+    <div class="container">
+      <div class="alert alert-warning alert-dismissible">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
+        <%= errMessage %>
+      </div>
+    </div>
+
     <% } %>
 
     <!--  -->

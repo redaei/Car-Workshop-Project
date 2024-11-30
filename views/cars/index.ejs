@@ -1,58 +1,87 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="overflow-hidden card table-nowrap table-card">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
+<section class="bg-light py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+        <h2 class="mb-4 display-5 text-center">Cars</h2>
+        <form
+          class="text-secondary mb-5 text-center lead fs-4"
+          action="/cars/new"
+          method="GET"
         >
-          <h5 class="mb-0">Cars</h5>
-          <div><a href="/cars/new">Add New Car</a></div>
-        </div>
-        <div class="table-responsive">
-          <table class="table mb-0">
-            <thead class="small text-uppercase bg-body text-muted">
-              <tr>
-                <th>Car No.</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Color</th>
-                <th>Owner</th>
-                <th>Phone</th>
-                <th class="text-end">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!--  -->
-              <% cars.forEach(car => { %>
+          <button class="btn btn-success" type="submit">
+            <i class="fa fa-plus"></i> Add New Car
+          </button>
+        </form>
 
-              <tr class="align-middle">
-                <td><a href="/cars/<%= car._id %>"><%= car.carNumber %></a></td>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
+      </div>
+    </div>
+  </div>
 
-                <td><%= car.make %></td>
-                <td><%= car.model %></td>
-                <td><%= car.color %></td>
-                <td><%= car.ownerName %></td>
-                <td><%= car.contactNumber %></td>
+  <!--  -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="overflow-hidden card table-nowrap table-card">
+          <div
+            class="card-header d-flex justify-content-between align-items-center"
+          >
+            <h5 class="mb-0">Cars</h5>
+          </div>
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <thead class="small text-uppercase bg-body text-muted">
+                <tr>
+                  <th>Car No.</th>
+                  <th>Make</th>
+                  <th>Model</th>
+                  <th>Color</th>
+                  <th>Owner</th>
+                  <th>Phone</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--  -->
+                <% cars.forEach(car => { %>
 
-                <td class="text-end">
-                  <a href="/cars/<%= car._id %>/edit">Edit</a>
-                  <form
-                    action="/cars/<%= car._id %>?_method=DELETE"
-                    method="POST"
-                  >
-                    <button type="submit">Delete</button>
-                  </form>
-                </td>
-              </tr>
+                <tr class="align-middle">
+                  <td>
+                    <a href="/cars/<%= car._id %>"><%= car.carNumber %></a>
+                  </td>
 
-              <% }) %>
-              <!--  -->
+                  <td><%= car.make %></td>
+                  <td><%= car.model %></td>
+                  <td><%= car.color %></td>
+                  <td><%= car.ownerName %></td>
+                  <td><%= car.contactNumber %></td>
 
-              <!--  -->
-            </tbody>
-          </table>
+                  <td class="text-end">
+                    <form action="/cars/<%= car._id %>/edit" method="GET">
+                      <button class="btn btn-warning" type="submit">
+                        Edit
+                      </button>
+                    </form>
+                    <form
+                      action="/cars/<%= car._id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button class="btn btn-danger" type="submit">
+                        Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+
+                <% }) %>
+                <!--  -->
+
+                <!--  -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>

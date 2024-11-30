@@ -1,38 +1,77 @@
-<h1>Edit <%= service.serviceName %> Service</h1>
-<form action="/services/<%= service._id %>?_method=PUT" method="POST">
-  <label for="serviceName">Service Name:</label>
-  <input
-    type="text"
-    name="serviceName"
-    id="serviceName"
-    value="<%= service.serviceName %>"
-  /><br />
-  <label for="serviceDescription">Service Description:</label>
-  <input
-    type="text"
-    name="serviceDescription"
-    id="serviceDescription"
-    value="<%= service.serviceDescription %>"
-  /><br />
+<section class="bg-light py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+        <h2 class="mb-4 display-5 text-center">
+          Edit <%= service.serviceName %> Service
+        </h2>
 
-  <h4>Workers:</h4>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
+      </div>
+    </div>
+  </div>
 
-  <select
-    name="employees"
-    id="employees"
-    class="form-select"
-    size="3"
-    aria-label="size 3 select example"
-    multiple
-  >
-    <% users.forEach((user) => { %> <% if (service.employees.includes(user._id))
-    { %>
-    <option value="<%= user._id %>" selected><%= user.username %></option>
-    <% } else { %>
-    <option value="<%= user._id %>"><%= user.username %></option>
-    <% }}) %>
-  </select>
-  <p>Hold down the control (ctrl/command) button to select multiple options</p>
+  <!--  -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="container-fluid">
+          <div class="row gy-3 gy-md-4">
+            <form
+              action="/services/<%= service._id %>?_method=PUT"
+              method="POST"
+            >
+              <label class="form-label" for="serviceName">Service Name:</label>
+              <input
+                class="form-control"
+                type="text"
+                name="serviceName"
+                id="serviceName"
+                value="<%= service.serviceName %>"
+              /><br />
+              <label class="form-label" for="serviceDescription"
+                >Service Description:</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                name="serviceDescription"
+                id="serviceDescription"
+                value="<%= service.serviceDescription %>"
+              /><br />
 
-  <button type="submit">Save Service</button>
-</form>
+              <h5 class="form-label">Workers:</h5>
+
+              <select
+                class="form-control"
+                name="employees"
+                id="employees"
+                class="form-select"
+                size="3"
+                aria-label="size 3 select example"
+                multiple
+              >
+                <% users.forEach((user) => { %> <% if
+                (service.employees.includes(user._id)) { %>
+                <option value="<%= user._id %>" selected>
+                  <%= user.username %>
+                </option>
+                <% } else { %>
+                <option value="<%= user._id %>"><%= user.username %></option>
+                <% }}) %>
+              </select>
+              <p>
+                Hold down the control (ctrl/command) button to select multiple
+                options
+              </p>
+
+              <button class="btn btn-success" type="submit">
+                Save Service
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

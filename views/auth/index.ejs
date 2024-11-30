@@ -1,78 +1,93 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="overflow-hidden card table-nowrap table-card">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
+<section class="bg-light py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+        <h2 class="mb-4 display-5 text-center">Users</h2>
+        <form
+          class="text-secondary mb-5 text-center lead fs-4"
+          action="/newUser"
+          method="GET"
         >
-          <h5 class="mb-0">Users</h5>
-          <div><a href="/newUser">Add New User</a></div>
-        </div>
-        <div class="table-responsive">
-          <table class="table mb-0">
-            <thead class="small text-uppercase bg-body text-muted">
-              <tr>
-                <th>Employee No.</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th class="text-end">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!--  -->
-              <% users.forEach(user => { %>
+          <button class="btn btn-success" type="submit">
+            <i class="fa fa-plus"></i> Add New User
+          </button>
+        </form>
 
-              <tr class="align-middle">
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="sm rounded-pill me-3 flex-shrink-0">
-                      <% user.username.charAt(0).toUpperCase() %>
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="overflow-hidden card table-nowrap table-card">
+          <div
+            class="card-header d-flex justify-content-between align-items-center"
+          >
+            <h5 class="mb-0">Users</h5>
+          </div>
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <thead class="small text-uppercase bg-body text-muted">
+                <tr>
+                  <th>Employee No.</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--  -->
+                <% users.forEach(user => { %>
+
+                <tr class="align-middle">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="sm rounded-pill me-3 flex-shrink-0">
+                        <% user.username.charAt(0).toUpperCase() %>
+                      </div>
+                      <div>
+                        <div class="h6 mb-0 lh-1">
+                          <%= user.employeeNumber %>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <div class="h6 mb-0 lh-1"><%= user.employeeNumber %></div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="d-inline-block align-middle"
-                    ><%= user.username %></span
-                  >
-                </td>
-                <td><%= user.role %></td>
-
-                <td class="text-end">
-                  <a href="/users/<%= user._id %>/edit">Edit</a>
-                  <form
-                    action="/users/<%= user._id %>?_method=DELETE"
-                    method="POST"
-                  >
-                    <button type="submit">Delete</button>
-                  </form>
-
-                  <div class="drodown">
-                    <a
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      class="btn p-1"
-                      aria-expanded="false"
+                  </td>
+                  <td>
+                    <span class="d-inline-block align-middle"
+                      ><%= user.username %></span
                     >
-                      <i class="fa fa-bars" aria-hidden="true"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" style="">
-                      <a href="#!" class="dropdown-item">View Details</a>
-                      <a href="#!" class="dropdown-item">Delete user</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <% }) %>
-              <!--  -->
+                  </td>
+                  <td><%= user.role %></td>
 
-              <!--  -->
-            </tbody>
-          </table>
+                  <td class="text-end">
+                    <form action="/users/<%= user._id %>/edit" method="GET">
+                      <button class="btn btn-warning" type="submit">
+                        Edit
+                      </button>
+                    </form>
+                    <form
+                      action="/users/<%= user._id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button class="btn btn-danger" type="submit">
+                        Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+                <!--  -->
+
+                <!--  -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>

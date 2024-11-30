@@ -1,28 +1,16 @@
 <section class="py-3 py-md-5">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 col-lg-9 col-xl-8 col-xxl-7">
+      <div class="col-12 col-xxl-7">
         <div class="row gy-3 mb-3">
           <div class="col-6">
             <h2 class="text-uppercase text-endx m-0">
               Bill No.: <%= bill.billNo %>
             </h2>
           </div>
-          <div class="col-6">
-            <a class="d-block text-end" href="#!">
-              CarWorkshop
-              <img
-                src="./assets/img/bsb-logo.svg"
-                class="img-fluid"
-                alt="BootstrapBrain Logo"
-                width="135"
-                height="44"
-              />
-            </a>
-          </div>
         </div>
         <div class="row mb-3">
-          <div class="col-12 col-sm-6 col-md-8">
+          <div class="col-12 col-sm-6 col-md-6">
             <h4>Bill To</h4>
             <address>
               <strong><%= bill.car.carNumber %></strong><br />
@@ -32,7 +20,7 @@
               Phone: <%= bill.car.contactNumber %><br />
             </address>
           </div>
-          <div class="col-12 col-sm-6 col-md-4">
+          <div class="col-12 col-sm-6 col-md-6">
             <h4 class="row">
               <span class="col-6">Worker: </span>
               <span class="col-6 text-sm-end"
@@ -44,9 +32,11 @@
               <span class="col-6 text-sm-end"
                 ><%= bill.createdBy.employeeNumber %></span
               >
-              <span class="col-6">Bill Date</span>
-              <% if (typeof paymentDate !== 'undefined'){ %>
-              <span class="col-6 text-sm-end"><%=bill.paymentDate %></span>
+              <span class="col-6">Payment Date</span>
+              <% if (typeof bill.paymentDate !== 'undefined'){ %>
+              <span class="col-6 text-sm-end"
+                ><%=bill.paymentDate.toDateString() %></span
+              >
               <% } else { %>
               <span class="col-6 text-sm-end">Not Paid!</span>
               <% } %>
@@ -87,12 +77,78 @@
         </div>
         <div class="row">
           <div class="col-12 text-end">
-            <form
-              action="/bills/<%= bill._id %>/Paid?_method=PUT"
-              method="POST"
+            <!--  -->
+
+            <!--  -->
+            <% if (bill.paymentStatus == 'Pending') {%>
+
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-success mb-3"
+              data-bs-toggle="modal"
+              data-bs-target="#amountModal"
             >
-              <button type="submit" class="btn btn-primary mb-3">Pay</button>
-            </form>
+              Pay
+            </button>
+
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="amountModal"
+              tabindex="-1"
+              aria-labelledby="amountModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form
+                    class="form-container"
+                    action="/bills/<%= bill._id %>/Paid?_method=PUT"
+                    method="POST"
+                  >
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="amountModalLabel">
+                        Bill No: <%= bill.billNo %>
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <!--  -->
+
+                      <label for="amount"><b>Amount</b></label>
+                      <input
+                        type="number"
+                        placeholder="Enter Amount"
+                        name="amount"
+                        required
+                      />
+
+                      <!--  -->
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" class="btn btn-success">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--  -->
+            <div class="form-popup" id="myForm"></div>
             <form
               action="/bills/<%= bill._id %>/Canceled?_method=PUT"
               method="POST"
@@ -101,6 +157,8 @@
                 Cancel Bill
               </button>
             </form>
+
+            <% } %>
           </div>
         </div>
       </div>

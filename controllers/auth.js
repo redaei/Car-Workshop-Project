@@ -19,29 +19,43 @@ router.get('/newUser', isSignedIn, (req, res) => {
 })
 
 router.post('/userCreate', isSignedIn, async (req, res) => {
-  const userInDB = await User.findOne({ username: req.body.username })
+  try {
+    let errMessage = ''
+    let message = ''
+    let page = ''
+    const userInDB = await User.findOne({ username: req.body.username })
 
-  if (userInDB) {
-    return res.send('Username already taken!')
+    if (userInDB) {
+      errMessage = 'Username already taken!'
+      page = './auth/new.ejs'
+      return res.render('index.ejs', { page, errMessage })
+    }
+
+    if (req.body.password !== req.body.confirmPassword) {
+      errMessage = 'Password and Confirm Password must match!'
+      page = './auth/new.ejs'
+      return res.render('index.ejs', { page, errMessage })
+    }
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+    req.body.password = hashedPassword
+
+    const user = await User.create(req.body)
+    message = `${user.username} account has been created successfully.`
+    const users = await User.find({})
+    page = './auth/index.ejs'
+    res.render('index.ejs', { page, users, message })
+  } catch (err) {
+    console.log(err)
+    res.redirect('/')
   }
-
-  if (req.body.password !== req.body.confirmPassword) {
-    return res.send('Password and Confirm Password must match')
-  }
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-  req.body.password = hashedPassword
-
-  const user = await User.create(req.body)
-  const message = `${user.username} account has been created successfully.`
-  const users = await User.find({})
-  const page = './auth/index.ejs'
-  res.render('index.ejs', { page, users, message: message })
 })
 
 router.get('/users/:userId/edit', isSignedIn, async (req, res) => {
+  let page = ''
+
   try {
     const user = await User.findById(req.params.userId)
-    let page = './auth/edit.ejs'
+    page = './auth/edit.ejs'
     res.render('index.ejs', {
       user,
       page
@@ -60,14 +74,18 @@ router.put('/users/:userId', isSignedIn, async (req, res) => {
       req.body.password = currentUser.password
     } else {
       if (req.body.password !== req.body.confirmPassword) {
-        return res.send('Password and Confirm Password must match')
+        errMessage = 'Password and Confirm Password must match!'
+        page = './auth/edit.ejs'
+        return res.render('index.ejs', { user: currentUser, page, errMessage })
       }
       const hashedPassword = bcrypt.hashSync(req.body.password, 10)
       req.body.password = hashedPassword
     }
 
     await currentUser.updateOne(req.body)
-    res.redirect('/users')
+    message = `${currentUser.username} has been edited!`
+    page = './auth/index.ejs'
+    return res.render('index.ejs', { page, errMessage })
   } catch (error) {
     console.log(error)
     res.redirect('/')
@@ -87,14 +105,19 @@ router.delete('/users/:userId', isSignedIn, async (req, res) => {
 })
 
 router.get('/auth/sign-in', (req, res) => {
-  res.render('auth/sign-in.ejs')
+  const page = './auth/sign-in.ejs'
+  res.render('index.ejs', { page })
 })
 
 router.post('/auth/sign-in', async (req, res) => {
+  let message = ''
+  let page = ''
   try {
     const userInDatabase = await User.findOne({ username: req.body.username })
     if (!userInDatabase) {
-      return res.send('Login failed . Please try again.')
+      message = 'Login failed . Please try again.'
+      page = './auth/sign-in.ejs'
+      return res.render('index.ejs', { page, message })
     }
 
     const validPassword = bcrypt.compareSync(
@@ -102,20 +125,23 @@ router.post('/auth/sign-in', async (req, res) => {
       userInDatabase.password
     )
     if (!validPassword) {
-      const message = 'Login failed. Please try again.'
-      return res.render('/auth/sign-in', { message })
+      message = 'Login failed. Please try again.'
+      page = './auth/sign-in.ejs'
+      return res.render('index.ejs', { page, message })
     }
 
     req.session.user = {
       username: userInDatabase.username,
-      _id: userInDatabase._id
+      _id: userInDatabase._id,
+      role: userInDatabase.role
     }
 
     res.redirect('/')
   } catch (err) {
     console.log(err)
-    const message = 'Error, Try Again!!'
-    return res.render('/auth/sign-in', { message: message })
+    message = 'Error, Try Again!!'
+    page = './auth/sign-in.ejs'
+    return res.render('index.ejs', { page, message })
   }
 })
 

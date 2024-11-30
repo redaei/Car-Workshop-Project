@@ -1,153 +1,167 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 mb-3 mb-lg-5">
-      <h2>Jobs</h2>
-      <div>
-        <form action="/requests/new" method="GET">
+<section class="bg-light py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+        <h2 class="mb-4 display-5 text-center">Jobs</h2>
+        <form
+          class="text-secondary mb-5 text-center lead fs-4"
+          action="/requests/new"
+          method="GET"
+        >
           <button class="btn btn-success" type="submit">
-            <i class="fa-solid fa-plus"></i> New Job
+            <i class="fa fa-plus"></i> New Job
           </button>
         </form>
+
+        <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
       </div>
-      <!--  -->
-      <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button
-              class="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseOne"
-              aria-expanded="true"
-              aria-controls="panelsStayOpen-collapseOne"
+    </div>
+  </div>
+
+  <!--  -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-3 mb-lg-5">
+        <!--  -->
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne"
+              >
+                Pending
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseOne"
+              class="accordion-collapse collapse show"
+              aria-labelledby="panelsStayOpen-headingOne"
             >
-              Pending
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseOne"
-            class="accordion-collapse collapse show"
-            aria-labelledby="panelsStayOpen-headingOne"
-          >
-            <div class="accordion-body">
-              <div class="table-responsive">
-                <table class="table mb-0">
-                  <thead class="small text-uppercase bg-body text-muted">
-                    <tr>
-                      <th>Car No.</th>
-                      <th>Make</th>
-                      <th>Service</th>
-                      <th>Worker</th>
-                      <th class="text-end">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% bills.forEach(bill => { %> <% if(bill.paymentStatus ===
-                    'Pending') {%>
-                    <tr class="align-middle">
-                      <td><%= bill.car.carNumber %></td>
-                      <td><%= bill.car.make %></td>
-                      <td><%= bill.service.serviceName %></td>
-                      <td><%= bill.createdBy.username %></td>
-                      <td class="text-end"><%= bill.amount %></td>
-                    </tr>
-                    <% } %> <% }) %>
-                  </tbody>
-                </table>
+              <div class="accordion-body">
+                <div class="table-responsive">
+                  <table class="table mb-0">
+                    <thead class="small text-uppercase bg-body text-muted">
+                      <tr>
+                        <th>Car No.</th>
+                        <th>Make</th>
+                        <th>Service</th>
+                        <th>Worker</th>
+                        <th class="text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% bills.forEach(bill => { %> <% if(bill.paymentStatus ===
+                      'Pending') {%>
+                      <tr class="align-middle">
+                        <td><%= bill.car.carNumber %></td>
+                        <td><%= bill.car.make %></td>
+                        <td><%= bill.service.serviceName %></td>
+                        <td><%= bill.createdBy.username %></td>
+                        <td class="text-end"><%= bill.amount %></td>
+                      </tr>
+                      <% } %> <% }) %>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseTwo"
-              aria-expanded="false"
-              aria-controls="panelsStayOpen-collapseTwo"
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseTwo"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseTwo"
+              >
+                Done
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseTwo"
+              class="accordion-collapse collapse"
+              aria-labelledby="panelsStayOpen-headingTwo"
             >
-              Done
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseTwo"
-            class="accordion-collapse collapse"
-            aria-labelledby="panelsStayOpen-headingTwo"
-          >
-            <div class="accordion-body">
-              <div class="table-responsive">
-                <table class="table mb-0">
-                  <thead class="small text-uppercase bg-body text-muted">
-                    <tr>
-                      <th>Car No.</th>
-                      <th>Make</th>
-                      <th>Service</th>
-                      <th>Worker</th>
-                      <th class="text-end">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% bills.forEach(bill => { %> <% if(bill.paymentStatus ===
-                    'Paid') {%>
-                    <tr class="align-middle">
-                      <td><%= bill.car.carNumber %></td>
-                      <td><%= bill.car.make %></td>
-                      <td><%= bill.service.serviceName %></td>
-                      <td><%= bill.createdBy.username %></td>
-                      <td class="text-end"><%= bill.amount %></td>
-                    </tr>
-                    <% } %> <% }) %>
-                  </tbody>
-                </table>
+              <div class="accordion-body">
+                <div class="table-responsive">
+                  <table class="table mb-0">
+                    <thead class="small text-uppercase bg-body text-muted">
+                      <tr>
+                        <th>Car No.</th>
+                        <th>Make</th>
+                        <th>Service</th>
+                        <th>Worker</th>
+                        <th class="text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% bills.forEach(bill => { %> <% if(bill.paymentStatus ===
+                      'Paid') {%>
+                      <tr class="align-middle">
+                        <td><%= bill.car.carNumber %></td>
+                        <td><%= bill.car.make %></td>
+                        <td><%= bill.service.serviceName %></td>
+                        <td><%= bill.createdBy.username %></td>
+                        <td class="text-end"><%= bill.amount %></td>
+                      </tr>
+                      <% } %> <% }) %>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#panelsStayOpen-collapseThree"
-              aria-expanded="false"
-              aria-controls="panelsStayOpen-collapseThree"
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseThree"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseThree"
+              >
+                Canceled
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapseThree"
+              class="accordion-collapse collapse"
+              aria-labelledby="panelsStayOpen-headingThree"
             >
-              Canceled
-            </button>
-          </h2>
-          <div
-            id="panelsStayOpen-collapseThree"
-            class="accordion-collapse collapse"
-            aria-labelledby="panelsStayOpen-headingThree"
-          >
-            <div class="accordion-body">
-              <div class="table-responsive">
-                <table class="table mb-0">
-                  <thead class="small text-uppercase bg-body text-muted">
-                    <tr>
-                      <th>Car No.</th>
-                      <th>Make</th>
-                      <th>Service</th>
-                      <th>Worker</th>
-                      <th class="text-end">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% bills.forEach(bill => { %> <% if(bill.paymentStatus ===
-                    'Canceled') {%>
-                    <tr class="align-middle">
-                      <td><%= bill.car.carNumber %></td>
-                      <td><%= bill.car.make %></td>
-                      <td><%= bill.service.serviceName %></td>
-                      <td><%= bill.createdBy.username %></td>
-                      <td class="text-end"><%= bill.amount %></td>
-                    </tr>
-                    <% } %> <% }) %>
-                  </tbody>
-                </table>
+              <div class="accordion-body">
+                <div class="table-responsive">
+                  <table class="table mb-0">
+                    <thead class="small text-uppercase bg-body text-muted">
+                      <tr>
+                        <th>Car No.</th>
+                        <th>Make</th>
+                        <th>Service</th>
+                        <th>Worker</th>
+                        <th class="text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% bills.forEach(bill => { %> <% if(bill.paymentStatus ===
+                      'Canceled') {%>
+                      <tr class="align-middle">
+                        <td><%= bill.car.carNumber %></td>
+                        <td><%= bill.car.make %></td>
+                        <td><%= bill.service.serviceName %></td>
+                        <td><%= bill.createdBy.username %></td>
+                        <td class="text-end"><%= bill.amount %></td>
+                      </tr>
+                      <% } %> <% }) %>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -155,6 +169,6 @@
       </div>
     </div>
   </div>
-</div>
 
-<!-- https://getbootstrap.com/docs/5.0/components/accordion/ -->
+  <!-- https://getbootstrap.com/docs/5.0/components/accordion/ -->
+</section>
