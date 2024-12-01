@@ -20,7 +20,7 @@ router.get('/', isSignedIn, async (req, res) => {
 
 router.get('/new', isSignedIn, async (req, res) => {
   
-  const services = await Service.find({createdBy: req.session.user})
+  const services = await Service.find({employees: req.session.user})
   const page = '../views/requests/services.ejs'
   res.render('index.ejs', { services, page })
 })
